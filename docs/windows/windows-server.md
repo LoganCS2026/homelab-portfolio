@@ -1,60 +1,50 @@
 # Windows Server 2022
 
-Windows Server 2022 is the main Windows infrastructure server for this VMware IT infrastructure homelab. It is currently installed and prepared for future Active Directory, DNS, and domain services configuration.
+Windows Server 2022 is the main Windows infrastructure server. It is installed and ready for Active Directory, DNS, and domain services configuration.
 
 ## Role
-
-Windows Server 2022 is intended to become the central infrastructure server for the MainSite network.
-
-Planned responsibilities include:
 
 * Active Directory Domain Services
 * DNS services
 * Domain authentication
 * Group Policy management
 * Windows client domain joins
-* Help desk and administration practice
+* Help desk administration scenarios
 
 ## Current State
-
-Windows Server 2022 has been installed as a baseline server VM and is ready for further configuration.
-
-Completed work includes:
 
 * Installed Windows Server 2022 Datacenter Evaluation with Desktop Experience
 * Configured the VM in VMware Workstation Pro
 * Installed VMware Tools
-* Verified mouse and display integration after VMware Tools installation
-* Created a clean baseline state for future role configuration
+* Verified mouse and display integration
+* Baseline state created before role configuration
 
 ## VMware Configuration
 
-| Setting          | Value                                     |
-| ---------------- | ----------------------------------------- |
-| Platform         | VMware Workstation Pro                    |
+| Setting | Value |
+| --- | --- |
+| Platform | VMware Workstation Pro |
 | Operating system | Windows Server 2022 Datacenter Evaluation |
-| Firmware         | UEFI                                      |
-| CPU              | 2 vCPU                                    |
-| Memory           | 4 GB                                      |
-| Disk             | 60 GB                                     |
-| Network          | VMnet1 / MainSite LAN                     |
+| Firmware | UEFI |
+| CPU | 2 vCPU |
+| Memory | 4 GB |
+| Disk | 60 GB |
+| Network | VMnet1 / MainSite LAN |
 
 ## Network Placement
 
-Windows Server 2022 is connected to the MainSite LAN behind pfSense #1.
+| Setting | Value |
+| --- | --- |
+| Network segment | VMnet1 |
+| MainSite subnet | 192.168.1.0/24 |
+| MainSite gateway | 192.168.1.1 |
+| DHCP authority | pfSense #1 |
 
-| Setting          | Value          |
-| ---------------- | -------------- |
-| Network segment  | VMnet1         |
-| MainSite subnet  | 192.168.1.0/24 |
-| MainSite gateway | 192.168.1.1    |
-| DHCP authority   | pfSense #1     |
-
-A static IP address or DHCP reservation will be configured before installing server roles. This will keep domain and DNS services stable for the Windows client systems.
+A static IP address or DHCP reservation will be configured before installing server roles.
 
 ## Troubleshooting Performed
 
-During installation, Windows Server setup failed with a licensing-terms error.
+Windows Server setup failed with a licensing-terms error during installation.
 
 Root cause:
 
@@ -66,13 +56,7 @@ Fix:
 * Restarted the installation manually.
 * Completed Windows Server setup successfully.
 
-Result:
-
-* Windows Server installed normally after removing the conflicting Easy Install device.
-
 ## Planned Improvements
-
-Planned improvements for Windows Server 2022 include:
 
 * Assign a static IP address or DHCP reservation
 * Install Active Directory Domain Services

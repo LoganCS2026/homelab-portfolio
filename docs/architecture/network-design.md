@@ -1,37 +1,42 @@
 # Network Design
 
-This homelab is built in VMware Workstation Pro and uses segmented virtual networks to simulate a small enterprise-style environment with a main site, a branch site, and dedicated security testing systems.
+This lab uses segmented VMware networks to simulate a small multi-site environment with a MainSite LAN, Branch Site LAN, NAT testing network, and bridged WAN access.
 
 ## Network Segments
 
-| Network   | Purpose                                                    | Subnet          |
-| --------- | ---------------------------------------------------------- | --------------- |
-| VMnet0    | Bridged WAN access to the physical network                 | Home network    |
-| VMnet1    | MainSite LAN behind pfSense #1                             | 192.168.1.0/24  |
-| BranchLAN | Branch office LAN behind pfSense #2                        | 192.168.2.0/24  |
-| VMnet8    | NAT network reserved for isolated testing/future expansion | 192.168.80.0/24 |
+| Network | Purpose | Subnet |
+| --- | --- | --- |
+| VMnet0 | Bridged WAN access through the physical network | Home network |
+| VMnet1 | MainSite LAN | 192.168.1.0/24 |
+| BranchLAN | Branch Site LAN | 192.168.2.0/24 |
+| VMnet8 | NAT network for isolated testing | 192.168.80.0/24 |
 
 ## MainSite
 
-pfSense #1 is the main router and firewall for the primary network.
+| Setting | Value |
+| --- | --- |
+| Router | pfSense #1 |
+| LAN IP | 192.168.1.1/24 |
+| DHCP scope | 192.168.1.100-192.168.1.199 |
+| Network | VMnet1 |
+| VMware DHCP | Disabled |
 
-* LAN IP: 192.168.1.1/24
-* DHCP scope: 192.168.1.100-192.168.1.199
-* Network: VMnet1
-* VMware DHCP: Disabled
-* Purpose: Central routing, DHCP, DNS forwarding, and firewall control for the main systems
+MainSite hosts the primary Windows, Linux, and security systems. pfSense #1 provides gateway, DHCP, DNS forwarding, and firewall control for this network.
 
 ## Branch Site
 
-pfSense #2 is the branch office router.
+| Setting | Value |
+| --- | --- |
+| Router | pfSense #2 |
+| LAN IP | 192.168.2.1/24 |
+| DHCP scope | 192.168.2.100-192.168.2.199 |
+| Network | BranchLAN |
+| VMware network type | LAN segment |
 
-* LAN IP: 192.168.2.1/24
-* DHCP scope: 192.168.2.100-192.168.2.199
-* Network: BranchLAN
-* Purpose: A remote office network that will later connect back to the main site through a site-to-site VPN
+BranchLAN is isolated from the host and MainSite networks. Access between BranchLAN and MainSite will require routing, firewall rules, or a site-to-site VPN.
 
 ## Design Notes
 
-VMware DHCP is disabled on VMnet1 so pfSense #1 remains the only DHCP authority for the main LAN. This prevents DHCP conflicts and better simulates a real network where routing and IP assignment are controlled by the firewall.
+VMware DHCP is disabled on VMnet1 so pfSense #1 remains the only DHCP authority for the MainSite LAN.
 
-The BranchLAN segment is intentionally separate from the host system so that branch access requires routing, firewall rules, or a site-to-site VPN instead of simple direct host access.
+BranchLAN uses a VMware LAN segment to simulate a separate branch office network instead of a directly reachable host-only network.
