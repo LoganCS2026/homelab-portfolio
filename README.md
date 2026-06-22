@@ -61,15 +61,15 @@ Planned improvements include:
 
 ## Documentation
 
-* [Network Design](docs/network-design.md)
-* [pfSense MainSite Router](docs/pfsense-main-site.md)
-* [pfSense Branch Site Router](docs/pfsense-branch-site.md)
-* [Windows Server 2022](docs/windows-server.md)
-* [Windows Client Systems](docs/windows-clients.md)
-* [Ubuntu Server](docs/ubuntu-server.md)
-* [Kali Linux](docs/kali-linux.md)
-* [Metasploitable 3](docs/metasploitable3.md)
-* [Project Roadmap](docs/roadmap.md)
+* [Network Design](docs/architecture/network-design.md)
+* [Project Roadmap](docs/architecture/roadmap.md)
+* [pfSense MainSite Router](docs/networking/pfsense-main-site.md)
+* [pfSense Branch Site Router](docs/networking/pfsense-branch-site.md)
+* [Windows Server 2022](docs/windows/windows-server.md)
+* [Windows Client Systems](docs/windows/windows-clients.md)
+* [Ubuntu Server](docs/linux/ubuntu-server.md)
+* [Kali Linux](docs/linux/kali-linux.md)
+* [Metasploitable 3](docs/security/metasploitable3.md)
 
 ## Skills Demonstrated
 
