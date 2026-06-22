@@ -62,6 +62,9 @@ Planned improvements include:
 ## Documentation
 
 * [Network Design](docs/network-design.md)
+* [pfSense MainSite Router](docs/pfsense-main-site.md)
+* [pfSense Branch Site Router](docs/pfsense-branch-site.md)
+* [Windows Server 2022](docs/windows-server.md)
 * [Project Roadmap](docs/roadmap.md)
 
 ## Skills Demonstrated
