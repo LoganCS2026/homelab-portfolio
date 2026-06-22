@@ -65,6 +65,10 @@ Planned improvements include:
 * [pfSense MainSite Router](docs/pfsense-main-site.md)
 * [pfSense Branch Site Router](docs/pfsense-branch-site.md)
 * [Windows Server 2022](docs/windows-server.md)
+* [Windows Client Systems](docs/windows-clients.md)
+* [Ubuntu Server](docs/ubuntu-server.md)
+* [Kali Linux](docs/kali-linux.md)
+* [Metasploitable 3](docs/metasploitable3.md)
 * [Project Roadmap](docs/roadmap.md)
 
 ## Skills Demonstrated
