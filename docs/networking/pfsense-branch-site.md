@@ -43,7 +43,7 @@ Temporary WAN web access was enabled long enough to complete the pfSense setup w
 ## Planned Improvements
 
 * Configure site-to-site VPN connectivity with pfSense #1
-* Allow controlled traffic between BranchLAN and MainSite
+* Allow controlled traffic between BranchLAN and Main Site
 * Test branch workstation access to domain services
 * Document VPN tunnel verification results
 * Forward pfSense logs to centralized logging

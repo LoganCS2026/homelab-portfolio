@@ -19,12 +19,12 @@ Core VM deployment is complete, and the lab is in the infrastructure configurati
 
 Completed work includes:
 
-* Configured pfSense #1 as the MainSite router and DHCP authority
+* Configured pfSense #1 as the Main Site router and DHCP authority
 * Configured pfSense #2 as the BranchLAN router and DHCP authority
-* Built separate MainSite, BranchLAN, and NAT virtual network segments
+* Built separate Main Site, BranchLAN, and NAT virtual network segments
 * Installed Windows Server 2022
 * Installed three Windows 11 Pro clients
-* Installed and verified Ubuntu Server on the MainSite network
+* Installed and verified Ubuntu Server on the Main Site network
 * Deployed Kali Linux for authorized lab testing
 * Deployed Metasploitable 3 as a vulnerable lab target
 * Verified DHCP behavior, network placement, and initial system reachability
@@ -33,7 +33,7 @@ Planned improvements include:
 
 * Configure Windows Server 2022 for Active Directory Domain Services
 * Join Windows 11 clients to the domain
-* Configure site-to-site VPN between MainSite and BranchLAN
+* Configure site-to-site VPN between Main Site and BranchLAN
 * Deploy Docker-based services on Ubuntu Server
 * Configure centralized logging
 * Generate controlled test traffic from Kali Linux after monitoring is in place
@@ -42,19 +42,21 @@ Planned improvements include:
 
 | Network | Purpose | Subnet |
 | --- | --- | --- |
-| VMnet1 | MainSite LAN | 192.168.1.0/24 |
+| VMnet1 | Main Site LAN | 192.168.1.0/24 |
 | BranchLAN | Branch office LAN | 192.168.2.0/24 |
 | VMnet8 | NAT network for isolated testing | 192.168.80.0/24 |
 | VMnet0 | Bridged WAN access | Home network |
+
+<img src="docs/assets/network-topology.png" alt="Network topology" width="850">
 
 ## Systems Used
 
 | System | Role |
 | --- | --- |
-| pfSense #1 | MainSite router and DHCP authority |
+| pfSense #1 | Main Site router and DHCP authority |
 | pfSense #2 | Branch Site router and DHCP authority |
 | Windows Server 2022 | Windows infrastructure server prepared for Active Directory services |
-| Windows 11 Pro clients | MainSite and Branch Site workstations prepared for domain testing |
+| Windows 11 Pro clients | Main Site and Branch Site workstations prepared for domain testing |
 | Ubuntu Server | Linux infrastructure server prepared for Docker and logging services |
 | Kali Linux | Security assessment workstation for authorized lab testing |
 | Metasploitable 3 | Vulnerable target for controlled scanning and detection practice |
@@ -63,7 +65,8 @@ Planned improvements include:
 
 * [Network Design](docs/architecture/network-design.md)
 * [Project Roadmap](docs/architecture/roadmap.md)
-* [pfSense MainSite Router](docs/networking/pfsense-main-site.md)
+* [Verification Screenshots](docs/architecture/verification-screenshots.md)
+* [pfSense Main Site Router](docs/networking/pfsense-main-site.md)
 * [pfSense Branch Site Router](docs/networking/pfsense-branch-site.md)
 * [Windows Server 2022](docs/windows/windows-server.md)
 * [Windows Client Systems](docs/windows/windows-clients.md)

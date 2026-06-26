@@ -24,10 +24,10 @@ Metasploitable 3 is the vulnerable Windows Server target. It is used for control
 | System | Network | Purpose |
 | --- | --- | --- |
 | Metasploitable 3 | VMnet8 / VMware NAT | Vulnerable target |
-| Kali Linux | VMnet1 / MainSite LAN | Primary lab access |
+| Kali Linux | VMnet1 / Main Site LAN | Primary lab access |
 | Kali Linux secondary adapter | VMnet8 / VMware NAT | Testing access to target |
 
-Metasploitable 3 is isolated on VMnet8. Kali uses a second VMnet8 adapter to reach the target while keeping its primary MainSite connection.
+Metasploitable 3 is isolated on VMnet8. Kali uses a second VMnet8 adapter to reach the target while keeping its primary Main Site connection.
 
 ## Current State
 

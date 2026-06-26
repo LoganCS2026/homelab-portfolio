@@ -1,6 +1,6 @@
 # Ubuntu Server
 
-Ubuntu Server is the Linux infrastructure server. It is installed on the MainSite LAN and ready for Docker, logging, and internal service hosting.
+Ubuntu Server is the Linux infrastructure server. It is installed on the Main Site LAN and ready for Docker, logging, and internal service hosting.
 
 ## Role
 
@@ -21,14 +21,14 @@ Ubuntu Server is the Linux infrastructure server. It is installed on the MainSit
 | Memory | 4 GB |
 | Disk | 40 GB |
 | Disk type | SCSI |
-| Network | VMnet1 / MainSite LAN |
+| Network | VMnet1 / Main Site LAN |
 
 ## Network Placement
 
 | Setting | Value |
 | --- | --- |
 | Network segment | VMnet1 |
-| MainSite subnet | 192.168.1.0/24 |
+| Main Site subnet | 192.168.1.0/24 |
 | Gateway | 192.168.1.1 |
 | DHCP authority | pfSense #1 |
 
@@ -57,7 +57,7 @@ Ubuntu Server is the Linux infrastructure server. It is installed on the MainSit
 
 DHCP autoconfiguration initially failed because pfSense #1 was powered off while Ubuntu Server was connected to VMnet1. Since VMware DHCP is disabled on VMnet1, no DHCP server was available until pfSense #1 was started.
 
-After pfSense #1 was started and DHCP was restored, Ubuntu Server received a valid MainSite DHCP lease.
+After pfSense #1 was started and DHCP was restored, Ubuntu Server received a valid Main Site DHCP lease.
 
 The installer reboot process displayed a shutdown error after installation completed. The VM was reset from VMware after confirming the installer was stuck. Ubuntu then booted successfully from the installed virtual disk, and no reinstall was required.
 

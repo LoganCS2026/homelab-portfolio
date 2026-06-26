@@ -20,14 +20,14 @@ Kali Linux is the security assessment workstation. It is used for authorized lab
 | CPU | 2 vCPU |
 | Memory | 4 GB |
 | Disk | Prebuilt Kali VMware disk |
-| Primary network | VMnet1 / MainSite LAN |
+| Primary network | VMnet1 / Main Site LAN |
 
 ## Network Placement
 
 | Setting | Value |
 | --- | --- |
 | Primary network segment | VMnet1 |
-| MainSite subnet | 192.168.1.0/24 |
+| Main Site subnet | 192.168.1.0/24 |
 | Gateway | 192.168.1.1 |
 | DHCP authority | pfSense #1 |
 

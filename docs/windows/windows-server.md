@@ -29,15 +29,15 @@ Windows Server 2022 is the main Windows infrastructure server. It is installed a
 | CPU | 2 vCPU |
 | Memory | 4 GB |
 | Disk | 60 GB |
-| Network | VMnet1 / MainSite LAN |
+| Network | VMnet1 / Main Site LAN |
 
 ## Network Placement
 
 | Setting | Value |
 | --- | --- |
 | Network segment | VMnet1 |
-| MainSite subnet | 192.168.1.0/24 |
-| MainSite gateway | 192.168.1.1 |
+| Main Site subnet | 192.168.1.0/24 |
+| Main Site gateway | 192.168.1.1 |
 | DHCP authority | pfSense #1 |
 
 A static IP address or DHCP reservation will be configured before installing server roles.
