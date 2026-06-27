@@ -1,70 +1,41 @@
 # Ubuntu Server
 
-Ubuntu Server is the Linux infrastructure server. It is installed on the Main Site LAN and ready for Docker, logging, and internal service hosting.
+Ubuntu Server is the Main Site Linux infrastructure server. It is static-addressed for future Docker services and centralized logging.
 
-## Role
-
-* Linux server administration
-* SSH-based administration
-* Docker and Docker Compose services
-* Centralized logging
-* Internal service hosting
-
-## VMware Configuration
+## Configuration
 
 | Setting | Value |
 | --- | --- |
-| Platform | VMware Workstation Pro |
-| Operating system | Ubuntu Server 26.04 LTS |
-| VM name | UbuntuServer |
-| CPU | 2 vCPU |
-| Memory | 4 GB |
-| Disk | 40 GB |
-| Disk type | SCSI |
 | Network | VMnet1 / Main Site LAN |
-
-## Network Placement
-
-| Setting | Value |
-| --- | --- |
-| Network segment | VMnet1 |
-| Main Site subnet | 192.168.1.0/24 |
+| Interface | ens33 |
+| IP address | 192.168.1.20/24 |
 | Gateway | 192.168.1.1 |
-| DHCP authority | pfSense #1 |
+| Initial DNS | 192.168.1.1 |
+| Future lab DNS | 192.168.1.10 |
 
-## Current State
+## Implemented
 
-* Installed Ubuntu Server
-* Connected the VM to VMnet1
-* Enabled OpenSSH during installation
-* Applied available package updates
-* Verified open-vm-tools integration
-* Confirmed no reboot was required after updates
-* Baseline snapshot created
+- Connected Ubuntu Server to VMnet1
+- Identified the network interface as `ens33`
+- Configured static addressing with netplan
+- Verified gateway reachability
+- Verified internet reachability
+- Verified DNS resolution
 
 ## Verification
 
-* DHCP assignment from pfSense #1
-* Correct default gateway
-* pfSense gateway reachability
-* Internet connectivity
-* DNS resolution
-* Ubuntu archive mirror access
-* VMware integration status
-* Package update completion
+| Check | Result |
+| --- | --- |
+| `ip addr` | Confirmed `192.168.1.20/24` on `ens33` |
+| `ip route` | Confirmed default route through `192.168.1.1` |
+| Gateway ping | Confirmed reachability to pfSense #1 |
+| Internet ping | Confirmed external reachability |
+| DNS lookup | Confirmed name resolution |
 
-## Troubleshooting Performed
+## Next Integration
 
-DHCP autoconfiguration initially failed because pfSense #1 was powered off while Ubuntu Server was connected to VMnet1. Since VMware DHCP is disabled on VMnet1, no DHCP server was available until pfSense #1 was started.
-
-After pfSense #1 was started and DHCP was restored, Ubuntu Server received a valid Main Site DHCP lease.
-
-The installer reboot process displayed a shutdown error after installation completed. The VM was reset from VMware after confirming the installer was stuck. Ubuntu then booted successfully from the installed virtual disk, and no reinstall was required.
-
-## Planned Improvements
-
-* Configure a static IP address or DHCP reservation
-* Install Docker and Docker Compose
-* Deploy internal lab services
-* Configure centralized logging for pfSense and Windows events
-* Host internal web services for lab testing
+- Docker-based internal services
+- Centralized logging
+- pfSense log collection
+- Windows event log collection
+- Internal web services for lab testing

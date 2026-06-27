@@ -1,68 +1,46 @@
 # Windows Server 2022
 
-Windows Server 2022 is the main Windows infrastructure server. It is installed and ready for Active Directory, DNS, and domain services configuration.
+Windows Server 2022 provides Active Directory, DNS, and Group Policy management for the `lab.local` domain.
 
-## Role
-
-* Active Directory Domain Services
-* DNS services
-* Domain authentication
-* Group Policy management
-* Windows client domain joins
-* Help desk administration scenarios
-
-## Current State
-
-* Installed Windows Server 2022 Datacenter Evaluation with Desktop Experience
-* Configured the VM in VMware Workstation Pro
-* Installed VMware Tools
-* Verified mouse and display integration
-* Baseline state created before role configuration
-
-## VMware Configuration
+## Configuration
 
 | Setting | Value |
 | --- | --- |
-| Platform | VMware Workstation Pro |
-| Operating system | Windows Server 2022 Datacenter Evaluation |
-| Firmware | UEFI |
-| CPU | 2 vCPU |
-| Memory | 4 GB |
-| Disk | 60 GB |
 | Network | VMnet1 / Main Site LAN |
+| Static IP | 192.168.1.10 |
+| Gateway | 192.168.1.1 |
+| DNS | 192.168.1.10 |
+| Domain | lab.local |
+| NetBIOS name | LAB |
+| Forest functional level | Windows Server 2016 |
+| Domain functional level | Windows Server 2016 |
 
-## Network Placement
+## Implemented
 
-| Setting | Value |
+- Configured static IP `192.168.1.10/24`
+- Installed Active Directory Domain Services
+- Promoted the server to Domain Controller
+- Created the `lab.local` forest
+- Installed DNS during promotion
+- Configured the server as a Global Catalog
+- Used the server to join Win11Pro-1 and Win11Pro-2 to the domain
+- Created and managed the `Test-Wallpaper` GPO
+
+## Verification
+
+| Check | Result |
 | --- | --- |
-| Network segment | VMnet1 |
-| Main Site subnet | 192.168.1.0/24 |
-| Main Site gateway | 192.168.1.1 |
-| DHCP authority | pfSense #1 |
+| `Get-ADDomain` | Confirmed `lab.local`, `LAB`, and `Windows2016Domain` |
+| `nslookup lab.local` | Resolved to `192.168.1.10` |
+| `dcdiag /q` | Returned only the DFSR event warning after SYSVOL creation |
+| Win11Pro-1 domain join | Successful |
+| Win11Pro-2 domain join | Successful |
+| Group Policy application | Successful on both domain-joined clients |
 
-A static IP address or DHCP reservation will be configured before installing server roles.
+## Troubleshooting
 
-## Troubleshooting Performed
-
-Windows Server setup failed with a licensing-terms error during installation.
-
-Root cause:
-
-* VMware Easy Install added an automatic installation floppy image that conflicted with the Windows Server evaluation ISO.
-
-Fix:
-
-* Removed the VMware Easy Install floppy device from the VM settings.
-* Restarted the installation manually.
-* Completed Windows Server setup successfully.
-
-## Planned Improvements
-
-* Assign a static IP address or DHCP reservation
-* Install Active Directory Domain Services
-* Install and configure DNS
-* Promote the server to a domain controller
-* Create the lab domain
-* Create test users, groups, and organizational units
-* Join Windows 11 clients to the domain
-* Configure and test Group Policy
+| Issue | Root Cause | Fix |
+| --- | --- | --- |
+| Windows Server installer could not find Microsoft Software License Terms | VMware Easy Install injected an `autoinst.flp` floppy image that conflicted with the evaluation ISO | Removed the floppy device and restarted the install manually |
+| DNS delegation warning during promotion | New forest with no parent DNS zone | Left DNS delegation unchecked and verified DNS after promotion |
+| `dcdiag /q` showed DFSREvent warning | New single-Domain Controller lab shortly after SYSVOL creation | Documented as expected for the current lab state |

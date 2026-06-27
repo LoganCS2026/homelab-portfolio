@@ -1,49 +1,36 @@
 # pfSense #2 - Branch Site Router
 
-pfSense #2 is the Branch Site router. It provides gateway, DHCP, and network separation for the isolated BranchLAN segment.
+pfSense #2 is the Branch Site gateway, DHCP authority, firewall, and WAN router for BranchLAN.
 
-## Role
-
-* BranchLAN gateway
-* DHCP service for the BranchLAN subnet
-* Firewall control for the branch workstation
-* Branch endpoint for site-to-site VPN configuration
-
-## Network Interfaces
-
-| Interface | Network | Purpose |
-| --- | --- | --- |
-| WAN | VMnet0 / Bridged | Upstream access through the physical network |
-| LAN | BranchLAN / LAN segment | Isolated branch office network |
-
-## LAN Configuration
+## Configuration
 
 | Setting | Value |
 | --- | --- |
-| LAN subnet | 192.168.2.0/24 |
-| LAN gateway | 192.168.2.1 |
+| WAN | VMnet0 / Bridged |
+| LAN | BranchLAN |
+| LAN IP | 192.168.2.1/24 |
 | DHCP scope | 192.168.2.100-192.168.2.199 |
 | VMware network type | LAN segment |
 
+## BranchLAN Role
+
+BranchLAN simulates a separate office network. It is isolated from the Main Site until VPN routing is configured.
+
+| System | Network | Status |
+| --- | --- | --- |
+| pfSense #2 | BranchLAN | Gateway and DHCP authority |
+| Win11Pro-3 | BranchLAN | Local-only workstation |
+
 ## Verification
 
-* pfSense #2 LAN interface assignment
-* BranchLAN DHCP lease assignment
-* Correct default gateway
-* Correct subnet placement
-* VMware adapter placement
-* Branch workstation network configuration
+- Win11Pro-3 received a `192.168.2.x` lease from pfSense #2
+- Win11Pro-3 used `192.168.2.1` as its gateway and DHCP server
+- BranchLAN remained isolated from the Main Site
 
-## Troubleshooting Performed
+## Troubleshooting
 
-The host PC could not directly reach BranchLAN after pfSense #2 was installed because BranchLAN is an isolated VMware LAN segment.
-
-Temporary WAN web access was enabled long enough to complete the pfSense setup wizard. After setup, the temporary WAN allow rules were removed and firewall states were reset to restore LAN-only management behavior.
-
-## Planned Improvements
-
-* Configure site-to-site VPN connectivity with pfSense #1
-* Allow controlled traffic between BranchLAN and Main Site
-* Test branch workstation access to domain services
-* Document VPN tunnel verification results
-* Forward pfSense logs to centralized logging
+| Issue | Fix |
+| --- | --- |
+| Host could not reach the pfSense #2 web GUI after LAN segment placement | Temporarily allowed WAN admin access from console using `pfSsh.php playback enableallowallwan` |
+| Temporary WAN access was unsafe to leave enabled | Deleted the WAN allow rules after setup and reset firewall states |
+| Branch workstation cannot join `lab.local` | Site-to-site VPN is required before the Branch client can reach `192.168.1.10` |

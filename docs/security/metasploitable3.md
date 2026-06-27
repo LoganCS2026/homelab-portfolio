@@ -1,73 +1,34 @@
 # Metasploitable 3
 
-Metasploitable 3 is the vulnerable Windows Server target. It is used for controlled scanning, service discovery, and detection practice from Kali Linux.
-
-## Role
-
-* Authorized testing against a lab-owned vulnerable system
-* Vulnerability scanning
-* Service discovery and validation
-* Security monitoring and log-correlation testing
-
-## Platform Configuration
-
-| Setting | Value |
-| --- | --- |
-| Platform | VMware Workstation Pro |
-| Deployment method | Vagrant with VMware Desktop provider |
-| Target system | Metasploitable 3 win2k8 |
-| VM management | Vagrant-managed, visible in VMware Workstation |
-| Network | VMnet8 / VMware NAT |
+Metasploitable 3 is the vulnerable target VM used for isolated testing from Kali Linux.
 
 ## Network Placement
 
-| System | Network | Purpose |
-| --- | --- | --- |
-| Metasploitable 3 | VMnet8 / VMware NAT | Vulnerable target |
-| Kali Linux | VMnet1 / Main Site LAN | Primary lab access |
-| Kali Linux secondary adapter | VMnet8 / VMware NAT | Testing access to target |
+| Setting | Value |
+| --- | --- |
+| Network | VMnet8 |
+| IP address | 192.168.80.133 |
+| Testing workstation | Kali Linux |
+| Kali VMnet8 address | 192.168.80.134 |
 
-Metasploitable 3 is isolated on VMnet8. Kali uses a second VMnet8 adapter to reach the target while keeping its primary Main Site connection.
-
-## Current State
-
-* Installed Vagrant and required VMware provider components
-* Deployed the Metasploitable 3 win2k8 target
-* Added the generated VM to VMware Workstation for visibility
-* Connected Metasploitable 3 to VMnet8
-* Added a second Kali adapter on VMnet8
-* Verified Kali-to-target reachability
-* Confirmed service discovery against exposed target services
-* Baseline state created for later testing
+Metasploitable 3 is kept on VMnet8 so testing traffic stays separate from Main Site and Branch Site systems.
 
 ## Verification
 
-* Vagrant-managed VM state
-* VMware Workstation visibility
-* VMnet8 network placement
-* Kali access to the VMnet8 testing subnet
-* ARP reachability from Kali
-* TCP reachability from Kali
-* Initial service discovery against exposed target services
+- Kali reached the target through VMnet8
+- ARP confirmed Layer 2 reachability
+- Nmap confirmed TCP service discovery
+- ICMP ping failed, but TCP scans confirmed the host was reachable
 
-ICMP did not respond, but ARP and TCP checks confirmed the target was reachable.
+## Confirmed Services
 
-## Troubleshooting Performed
+Nmap identified exposed services including:
 
-Required Vagrant and VMware provider components were missing from the host system. These were installed so Vagrant could deploy the Metasploitable 3 VM through VMware Workstation.
+- SSH
+- IIS 7.5
+- GlassFish 4.0
+- Additional Windows services
 
-The default Rapid7 Vagrantfile included multiple targets, so only the Windows target was selected.
+## Current Role
 
-Metasploitable 3 did not initially appear in the normal VMware library because Vagrant created it inside its workspace structure. The generated VM configuration was opened in VMware Workstation while keeping Vagrant management intact.
-
-Kali could not initially reach Metasploitable 3 because Kali was on VMnet1 while the target was on VMnet8. A second Kali network adapter was added to VMnet8.
-
-ICMP testing failed after network placement was corrected, so reachability was confirmed through ARP and TCP service checks.
-
-## Planned Improvements
-
-* Run controlled scans from Kali Linux
-* Document discovered services and findings
-* Generate security events for centralized logging
-* Correlate test traffic with pfSense and endpoint logs
-* Build detection and remediation notes from findings
+Metasploitable 3 provides a controlled target for later log collection, firewall visibility, and detection practice once centralized logging is deployed.
