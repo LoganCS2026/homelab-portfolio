@@ -9,6 +9,7 @@ Windows Server 2022 is promoted as the Domain Controller for `lab.local`.
 | Domain | lab.local |
 | NetBIOS domain | LAB |
 | Domain Controller | Windows Server 2022 |
+| Domain Controller hostname | WIN-JEEASK82S6D |
 | Domain Controller IP | 192.168.1.10 |
 | Forest functional level | Windows Server 2016 |
 | Domain functional level | Windows Server 2016 |
@@ -33,6 +34,7 @@ Windows Server 2022 is promoted as the Domain Controller for `lab.local`.
 | --- | --- |
 | John | Win11Pro-1 domain logon test |
 | Sarah | Win11Pro-2 domain logon test |
+| Alex | Win11Pro-3 branch domain logon test |
 
 ## DNS
 
@@ -41,9 +43,21 @@ Windows Server 2022 is promoted as the Domain Controller for `lab.local`.
 | Domain | lab.local |
 | DNS server | 192.168.1.10 |
 | Main Site client DNS | 192.168.1.10 |
+| Branch Site client DNS | 192.168.1.10 |
 | Main Site gateway | 192.168.1.1 |
+| Branch Site gateway | 192.168.2.1 |
 
-Main Site DHCP hands out the Domain Controller as DNS so clients can resolve `lab.local`.
+DHCP provides `192.168.1.10` as client DNS for domain resolution.
+
+## AD Sites
+
+| Setting | Current State |
+| --- | --- |
+| DC Site Name | Default-First-Site-Name |
+| Branch client site | Default-First-Site-Name |
+| Separate AD sites/subnets | Not configured yet |
+
+The VPN validates routed branch access to Active Directory. Separate AD Sites and Services design has not been implemented yet.
 
 ## Verification
 
@@ -54,6 +68,9 @@ Main Site DHCP hands out the Domain Controller as DNS so clients can resolve `la
 | `dcdiag /q` | Returned only the DFSR event warning after SYSVOL creation |
 | Win11Pro-1 logon | `LAB\John` authenticated successfully |
 | Win11Pro-2 logon | `LAB\Sarah` authenticated successfully |
+| Win11Pro-3 logon | `LAB\Alex` authenticated successfully across VPN |
+| `nltest /dsgetdc:lab.local` from Win11Pro-3 | Returned `WIN-JEEASK82S6D.lab.local` |
+| `%logonserver%` from Win11Pro-3 | Returned `\\WIN-JEEASK82S6D` |
 
 ## Troubleshooting
 
@@ -61,4 +78,4 @@ Main Site DHCP hands out the Domain Controller as DNS so clients can resolve `la
 | --- | --- |
 | DNS delegation warning during promotion | Expected for a new forest with no parent DNS zone |
 | Incorrect pfSense DNS entry | Corrected `192.169.1.10` to `192.168.1.10` |
-| Branch workstation cannot join domain | BranchLAN has no route to `192.168.1.10` until VPN is configured |
+| Branch workstation needed domain access | Resolved with IPsec VPN and BranchLAN DNS set to `192.168.1.10` |

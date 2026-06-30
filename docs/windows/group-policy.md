@@ -1,6 +1,6 @@
 # Group Policy
 
-A test Group Policy Object was created to verify that `lab.local` can push policy to domain-joined Windows clients.
+A test Group Policy Object was created to verify policy delivery to domain-joined Windows clients.
 
 ## Test GPO
 
@@ -24,21 +24,30 @@ User Configuration follows user object scope unless loopback processing is confi
 
 - Removed the Workstations OU link
 - Linked `Test-Wallpaper` at the `lab.local` domain root
-- Ran `gpupdate /force` on both clients
-- Confirmed both clients applied the wallpaper
+- Ran `gpupdate /force` on the clients
+- Confirmed the clients applied the wallpaper
 
 ## Verification
 
-| Client | Result |
-| --- | --- |
-| Win11Pro-1 | Wallpaper changed after policy refresh |
-| Win11Pro-2 | Wallpaper changed after policy refresh |
+| Client | User | Result |
+| --- | --- | --- |
+| Win11Pro-1 | `LAB\John` | Wallpaper changed after policy refresh |
+| Win11Pro-2 | `LAB\Sarah` | Wallpaper changed after policy refresh |
+| Win11Pro-3 | `LAB\Alex` | Wallpaper changed after policy refresh across VPN |
 
-## What This Demonstrates
+## BranchLAN Validation
+
+| Check | Result |
+| --- | --- |
+| `gpupdate /force` | Computer and user policy updated successfully |
+| `gpresult /r` | `Test-Wallpaper` listed under Applied Group Policy Objects |
+| Policy source | `WIN-JEEASK82S6D.lab.local` |
+
+## Skills
 
 - Created a Group Policy Object
 - Edited User Configuration policy settings
 - Linked and relinked a GPO
 - Identified user-scope versus computer-scope behavior
 - Forced policy refresh with `gpupdate /force`
-- Verified client-side policy application
+- Verified local and cross-VPN Group Policy processing

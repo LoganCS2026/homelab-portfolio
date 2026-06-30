@@ -11,7 +11,7 @@ Metasploitable 3 is the vulnerable target VM used for isolated testing from Kali
 | Testing workstation | Kali Linux |
 | Kali VMnet8 address | 192.168.80.134 |
 
-Metasploitable 3 is kept on VMnet8 so testing traffic stays separate from Main Site and Branch Site systems.
+Metasploitable 3 is kept on VMnet8 so testing traffic stays separate from MainLAN and BranchLAN systems.
 
 ## Verification
 

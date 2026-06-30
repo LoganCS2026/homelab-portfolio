@@ -1,12 +1,12 @@
 # Ubuntu Server
 
-Ubuntu Server is the Main Site Linux infrastructure server. It is static-addressed for future Docker services and centralized logging.
+Ubuntu Server is the MainLAN Linux infrastructure server. It is static-addressed for future Docker services and centralized logging.
 
 ## Configuration
 
 | Setting | Value |
 | --- | --- |
-| Network | VMnet1 / Main Site LAN |
+| Network | VMnet1 / MainLAN |
 | Interface | ens33 |
 | IP address | 192.168.1.20/24 |
 | Gateway | 192.168.1.1 |

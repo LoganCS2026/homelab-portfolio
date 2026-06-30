@@ -6,7 +6,7 @@ Kali Linux is the testing workstation for lab-owned targets.
 
 | Adapter | Network | Addressing | Purpose |
 | --- | --- | --- | --- |
-| Adapter 1 | VMnet1 | 192.168.1.103 | Main Site access |
+| Adapter 1 | VMnet1 | 192.168.1.103 | MainLAN access |
 | Adapter 2 | VMnet8 | 192.168.80.134 | Isolated testing access |
 
 ## Target Access
@@ -15,7 +15,7 @@ Kali Linux is the testing workstation for lab-owned targets.
 | --- | --- | --- |
 | Metasploitable 3 | VMnet8 | 192.168.80.133 |
 
-Kali reaches Metasploitable 3 through VMnet8 without placing the vulnerable target on the Main Site or Branch Site networks.
+Kali reaches Metasploitable 3 through VMnet8 without placing the vulnerable target on MainLAN or BranchLAN.
 
 ## Verification
 
